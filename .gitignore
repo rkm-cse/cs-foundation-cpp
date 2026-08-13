@@ -1,0 +1,13 @@
+# Executables
+*.exe
+*.out
+*.app
+
+# Build outputs & debug files
+*.o
+*.obj
+*.pdb
+
+# Editor configs
+.vscode/
+.idea/
