@@ -1,20 +1,35 @@
 #include <iostream>
-
-int globalVal = 100;     // Data Segment
-int globalUninit;        // BSS Segment
+#include <iomanip>
 
 int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
 
-    int localVar = 50;           // Stack
-    int* heapPtr = new int(200); // Heap
+    int studentCount;
+    std::cout << "Enter number of students: ";
+    if (!(std::cin >> studentCount) || studentCount <= 0) {
+        return 0;
+    }
 
-    std::cout << "Data Segment (globalVal)  : " << &globalVal << '\n';
-    std::cout << "BSS Segment  (globalUninit) : " << &globalUninit << '\n';
-    std::cout << "Heap         (heapPtr)    : " << heapPtr << '\n';
-    std::cout << "Stack        (localVar)   : " << &localVar << '\n';
+    // Allocate dynamic array on the Heap
+    double* gpaArray = new double[studentCount];
 
-    delete heapPtr; // Clean up Heap memory
+    // Read GPAs
+    for (int i = 0; i < studentCount; ++i) {
+        std::cin >> gpaArray[i];
+    }
+
+    // Calculate Average GPA
+    double sum = 0.0;
+    for (int i = 0; i < studentCount; ++i) {
+        sum += gpaArray[i];
+    }
+    double average = sum / studentCount;
+
+    std::cout << "Average GPA: " << std::fixed << std::setprecision(2) << average << '\n';
+
+    // Cleanup Heap allocation
+    delete[] gpaArray;
+
     return 0;
 }
